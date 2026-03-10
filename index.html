@@ -9,27 +9,25 @@
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-
   <a href="#" class="logo">IŞIK ESMA AKDOĞAN</a>
-
-  <!-- HAMBURGER -->
-  <button class="menu-toggle">☰</button>
-
   <ul class="nav-links">
     <li><a href="#about" data-tr="Hakkımda" data-en="About">Hakkımda</a></li>
     <li><a href="#education" data-tr="Eğitim" data-en="Education">Eğitim</a></li>
     <li><a href="#skills" data-tr="Yetenekler" data-en="Skills">Yetenekler</a></li>
     <li><a href="#projects" data-tr="Projeler" data-en="Projects">Projeler</a></li>
-  </ul>
+    
 
+  </ul>
   <div class="lang-switcher">
     <button class="lang-btn active" id="btn-tr" onclick="setLang('tr')">TR</button>
     <span class="lang-sep">|</span>
     <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
   </div>
-
 </nav>
+<div class="nav-progress"><div class="nav-progress-bar" id="progressBar"></div></div>
+
 <!-- HERO -->
 <section class="hero">
   <div class="hero-left">
@@ -286,7 +284,7 @@
       <span class="cta-contact-label" data-tr="E-posta" data-en="Email">E-posta</span>
     </button>
 
-   
+    
 
   </div>
   <div class="cta-copy-toast" id="copyToast" data-tr="Kopyalandı ✓" data-en="Copied ✓">Kopyalandı ✓</div>
@@ -348,16 +346,7 @@
       toast.classList.add('show');
       setTimeout(function() { toast.classList.remove('show'); }, 2000);
     });
-
   }
-  // MOBILE MENU
-const menuBtn = document.querySelector(".menu-toggle");
-const navLinks = document.querySelector(".nav-links");
-
-menuBtn.addEventListener("click", () => {
-  navLinks.classList.toggle("open");
-});
-  
 </script>
 
 </body>
