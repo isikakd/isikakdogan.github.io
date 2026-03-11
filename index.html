@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Işık Esma Akdoğan — Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
@@ -25,6 +25,7 @@
     <span class="lang-sep">|</span>
     <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
   </div>
+  <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()" aria-label="Menü">☰</button>
 </nav>
 <div class="nav-progress"><div class="nav-progress-bar" id="progressBar"></div></div>
 
@@ -306,6 +307,30 @@
     document.getElementById('progressBar').style.width = progress + '%';
   });
 
+  // ── MOBILE MENU TOGGLE ──
+  var menuOpen = false;
+  function toggleMenu() {
+    menuOpen = !menuOpen;
+    var navLinks = document.querySelector('.nav-links');
+    var toggle = document.querySelector('.menu-toggle');
+    navLinks.classList.toggle('open', menuOpen);
+    toggle.textContent = menuOpen ? '✕' : '☰';
+  }
+
+  // Close menu when a link is clicked
+  document.querySelectorAll('.nav-links a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      if (menuOpen) toggleMenu();
+    });
+  });
+
+  // Close menu on outside click
+  document.addEventListener('click', function(e) {
+    if (menuOpen && !e.target.closest('nav')) {
+      toggleMenu();
+    }
+  });
+
   // ── LANGUAGE SWITCHER ──
   var currentLang = 'tr';
 
@@ -318,25 +343,22 @@
 
     // Update all regular elements with data-tr / data-en
     document.querySelectorAll('[data-tr]').forEach(function(el) {
-      // Skip SVG text elements handled separately
       if (el.tagName.toLowerCase() === 'text') return;
       var val = el.getAttribute('data-' + lang);
       if (val !== null) el.innerHTML = val;
     });
 
-    // Update SVG text elements (innerHTML doesn't work on SVG text in all browsers)
+    // Update SVG text elements
     document.querySelectorAll('text[data-tr]').forEach(function(el) {
       var val = el.getAttribute('data-' + lang);
       if (val !== null) el.textContent = val;
     });
 
-    // Update page title
-    document.title = lang === 'tr'
-      ? 'Işık Esma Akdoğan — Portfolio'
-      : 'Işık Esma Akdoğan — Portfolio';
-
-    // Update html lang attribute
+    document.title = 'Işık Esma Akdoğan — Portfolio';
     document.documentElement.lang = lang;
+
+    // Close mobile menu on lang switch
+    if (menuOpen) toggleMenu();
   }
 
   // ── CLIPBOARD ──
